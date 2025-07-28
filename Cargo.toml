@@ -1,0 +1,31 @@
+[package]
+name = "rust-web-sample"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+anyhow = "1.0.98"
+async-trait = "0.1.88"
+axum = { version = "0.7.0", features = ["multipart"] }
+axum-extra = { version = "0.10.1", features = ["typed-header"] }
+dotenvy = "0.15.7"
+sea-orm = { version = "1.1.14", default-features = false, features = [
+    "sqlx-postgres",
+    "runtime-async-std-native-tls",
+    "macros",
+    "with-chrono",
+] }
+serde = { version = "1.0.219", features = ["derive"] }
+thiserror = "2.0.12"
+tokio = { version = "1.47.0", features = ["full"] }
+utoipa = { version = "4.2.3", features = ["axum_extras"], optional = true }
+utoipa-swagger-ui = { version = "^7.1.0", features = ["axum"], optional = true }
+validator = { version = "0.20.0", features = ["derive"] }
+
+[dev-dependencies]
+fake = "4.3.0"
+mockall = "0.13.1"
+
+[features]
+default = []
+apidoc = ["utoipa", "utoipa-swagger-ui"]
