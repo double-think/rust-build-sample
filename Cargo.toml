@@ -1,35 +1,49 @@
 [package]
 name = "rust-web-sample"
 version = "0.1.0"
-edition = "2024"
+edition = "2021"         # 2024より2021の方が対応crate多いが依存増えやすい
 
 [dependencies]
 anyhow = "1.0.98"
 async-trait = "0.1.88"
-axum = { version = "0.7.0", features = ["multipart"] }
-axum-extra = { version = "0.10.1", features = ["typed-header"] }
-dotenvy = "0.15.7"
-sea-orm = { version = "1.1.14", default-features = false, features = [
-    "sqlx-postgres",
-    "runtime-tokio-rustls",
+
+# Axum を full feature で
+axum = { version = "0.7.0", features = [
     "macros",
-    "with-chrono",
+    "http1",
+    "http2",
+    "ws",
+    "multipart",
+    "tokio",
+    "tower-log",
 ] }
+
+# Axum Extra も全機能入り
+axum-extra = { version = "0.10.1", features = [
+    "typed-header",
+    "cookie",
+    "protobuf",
+    "query",
+] }
+
+dotenvy = "0.15.7"
+
+# SeaORM をデフォルトフル機能で (mysql/sqlite/postgres + async-std + native-tls)
+sea-orm = "1.1.14"
+
 serde = { version = "1.0.219", features = ["derive"] }
 thiserror = "2.0.12"
-tokio = { version = "1.47.0", features = [
-    "macros",
-    "rt-multi-thread",
-    "signal",
-] }
-utoipa = { version = "4.2.3", features = ["axum_extras"], optional = true }
-utoipa-swagger-ui = { version = "^7.1.0", features = ["axum"], optional = true }
-validator = { version = "0.20.0", features = ["derive"] }
+
+# Tokio も full
+tokio = { version = "1.47.0", features = ["full"] }
+
+# utoipa 系も全機能入り
+utoipa = { version = "4.2.3", features = ["axum_extras", "yaml", "debug"] }
+utoipa-swagger-ui = { version = "^7.1.0", features = ["axum", "debug-embed"] }
+
+# validator 系も全機能入り
+validator = { version = "0.20.0", features = ["derive", "card", "unic"] }
 
 [dev-dependencies]
 fake = "4.3.0"
 mockall = "0.13.1"
-
-[features]
-default = []
-apidoc = ["utoipa", "utoipa-swagger-ui"]
