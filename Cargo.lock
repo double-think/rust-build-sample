@@ -1912,7 +1912,6 @@ dependencies = [
  "fake",
  "mockall",
  "sea-orm",
- "sea-query",
  "serde",
  "thiserror 2.0.12",
  "tokio",
