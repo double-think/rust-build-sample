@@ -29,7 +29,12 @@ axum-extra = { version = "0.10.1", features = [
 dotenvy = "0.15.7"
 
 # SeaORM をデフォルトフル機能で (mysql/sqlite/postgres + async-std + native-tls)
-sea-orm = "1.1.14"
+sea-orm = { version = "1.1.14", features = [
+    "sqlx-all",
+    "runtime-async-std-native-tls",
+    "macros",
+    "with-chrono",
+] }
 
 serde = { version = "1.0.219", features = ["derive"] }
 thiserror = "2.0.12"
